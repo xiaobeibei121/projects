@@ -6,7 +6,7 @@
     <!--</sql>-->
 
     <select id="selectMain" resultType="com.bpp.projects.cardGuide.entity.Detail">
-        SELECT tag,meaasges From mainTable a, detailTable b
+        SELECT tag,messages From mainTable a, detailTable b
         <where>
             a.id = b.parentID
             <if test="date != null">
