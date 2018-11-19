@@ -1,23 +1,36 @@
 package com.bpp.projects.cardGuide.controllers;
 
 import com.bpp.projects.cardGuide.Service.UserService;
+import com.bpp.projects.cardGuide.commons.ResponseData;
 import com.bpp.projects.cardGuide.dao.UserDAO;
+import com.bpp.projects.cardGuide.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.io.IOException;
+import java.util.Date;
 
 @RestController
 public class UserController {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserService userService;
 
-    @GetMapping("/openID")
-    public Map<String,String> getOpenID () {
+    @GetMapping("/openid")
+    public ResponseData getOpenID(@RequestParam(required = true) String code) {
+        ResponseData resultDate = null;
+        try {
+            resultDate = userService.getOpenID(code);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resultDate;
+    }
 
-        Map<String,String> userResult = userDAO.getOpenID("a","a","a","a");
-        return userResult;
+    @PutMapping("/user")
+    public ResponseData insertUser(@RequestBody User user) {
+        ResponseData resultDate = null;
+        resultDate = userService.insertUser(user);
+        return resultDate;
     }
 }
