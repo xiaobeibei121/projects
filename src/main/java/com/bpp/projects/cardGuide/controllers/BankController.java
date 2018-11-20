@@ -15,7 +15,7 @@ public class BankController{
     @Autowired
     private BankDAO bankDAO;
 
-    @GetMapping("/getBanks")
+    @GetMapping("/banks")
     public List<Bank> getBanks () {
         List<Bank> banks = new ArrayList<Bank>();
         banks = bankDAO.getAllBank();

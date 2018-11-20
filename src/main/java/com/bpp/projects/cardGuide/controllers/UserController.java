@@ -33,4 +33,18 @@ public class UserController {
         resultDate = userService.insertUser(user);
         return resultDate;
     }
+
+    @GetMapping("/user")
+    public ResponseData getUser(@RequestParam(required = true) String openid) {
+        ResponseData resultDate = null;
+        resultDate = userService.getUser(openid);
+        return resultDate;
+    }
+
+    @PostMapping("/user")
+    public ResponseData updateUser(@RequestParam(required = true) String openid) {
+        ResponseData resultDate = null;
+        resultDate = userService.updateUser(openid);
+        return resultDate;
+    }
 }

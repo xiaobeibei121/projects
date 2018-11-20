@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bpp.projects.cardGuide.dao.MainDAO">
     <select id="selectMain" resultType="com.bpp.projects.cardGuide.entity.Detail">
-        SELECT tag,messages From mainTable a, detailTable b
+        SELECT b.tag as tag,c.name as name,b.messages as messages From mainTable a, detailTable b,banks c
         <where>
-            a.id = b.parentID
+            a.id = b.parentID and b.tag=c.tag
             <if test="date != null">
                 AND date= #{date}
             </if>
         </where>
+        ORDER BY b.tag ASC
     </select>
 </mapper>

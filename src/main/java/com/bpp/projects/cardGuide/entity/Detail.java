@@ -13,5 +13,7 @@ public class Detail {
 
     private int tag;
 
+    private String name;
+
     private String messages;
 }

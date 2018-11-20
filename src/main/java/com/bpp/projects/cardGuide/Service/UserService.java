@@ -34,7 +34,7 @@ public class UserService {
 
         // 用OkHttpClient获取微信数据
         Request request = new Request.Builder()
-                .url("https://api.weixin.qq.com/sns/jscode2session?appid=wxb085dd9df1e18b61&secret=f875eb68dd21ae25861c6cbda3d0cb7f&js_code=" + code + "&grant_type=authorization_code")
+                .url("https://api.weixin.qq.com/sns/jscode2session?appid=wxa89701c001079b53&secret=4b8721037ceb8a57a72c42c8a43020a9&js_code=" + code + "&grant_type=authorization_code")
                 .build();
 
         Response response = client.newCall(request).execute();
@@ -52,6 +52,7 @@ public class UserService {
 
         // 数据返回处理
         ResponseData result = new ResponseData();
+        Map<String,Object> data = new HashMap<>();
         int errorCode = 0;
         String errorMsg = null;
         if (openid == null) {
@@ -59,10 +60,14 @@ public class UserService {
             errorMsg = (String)resMap.get("errmsg");
         } else {
             errorMsg = "获取成功";
+            // 判断用户是否存在
+            int isExistUser = userDAO.isExistUser(openid);
+            data.put("isExistUser", isExistUser);
         }
+        data.put("openid", openid);
         result.setErrorCode(errorCode);
         result.setErrorMsg(errorMsg);
-        result.setData(openid);
+        result.setData(data);
 
         return result;
     }
@@ -79,8 +84,6 @@ public class UserService {
         user.setLastVisitTime(new Date());
         int resultNum = userDAO.insertUser(user);
 
-        // 数据返回处理
-        ResponseData result = new ResponseData();
         int errorCode = 0;
         String errorMsg = null;
         if (resultNum <= 0) {
@@ -89,6 +92,60 @@ public class UserService {
         } else {
             errorMsg = "用户数据新增成功";
         }
+
+        // 数据返回处理
+        ResponseData result = new ResponseData();
+        result.setErrorCode(errorCode);
+        result.setErrorMsg(errorMsg);
+        result.setData(resultNum);
+
+        return result;
+    }
+
+    /**
+     * 获取用户信息
+     * @param openid
+     * @return
+     */
+    public ResponseData getUser(String openid) {
+        User user = userDAO.getUser(openid);
+
+        // 数据返回处理
+        ResponseData result = new ResponseData();
+        int errorCode = 0;
+        String errorMsg = null;
+        if (user == null) {
+            errorCode = -1;
+            errorMsg = "获取用户数据失败";
+        } else {
+            errorMsg = "获取用户数据成功";
+        }
+        result.setErrorCode(errorCode);
+        result.setErrorMsg(errorMsg);
+        result.setData(user);
+        return result;
+    }
+
+    /**
+     * 更新用户数据
+     * @param openid
+     * @return
+     */
+    public ResponseData updateUser(String openid) {
+        // 更新用户数据
+        int resultNum = userDAO.updateUser(openid, new Date());
+
+        int errorCode = 0;
+        String errorMsg = null;
+        if (resultNum <= 0) {
+            errorCode = -1;
+            errorMsg = "用户数据更新失败";
+        } else {
+            errorMsg = "用户数据更新成功";
+        }
+
+        // 数据返回处理
+        ResponseData result = new ResponseData();
         result.setErrorCode(errorCode);
         result.setErrorMsg(errorMsg);
         result.setData(resultNum);
