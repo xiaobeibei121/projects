@@ -6,7 +6,6 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-@JsonIgnoreProperties(value = {"nickName", "avatarUrl", "country", "province", "city", "gender", "language"})
 public class User {
 
     private String nickName;
