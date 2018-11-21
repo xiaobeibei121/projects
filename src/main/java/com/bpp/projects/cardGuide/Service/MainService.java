@@ -21,7 +21,7 @@ public class MainService {
      * @param date
      * @return
      */
-    public ResponseData getMainList(String date) {
+    public ResponseData getMainList(String date, Integer tag) {
         String temp_str = date;
 
         // 判断date是否传过来，若为 null ，则选择当前的日期
@@ -35,7 +35,7 @@ public class MainService {
         Map<String, Object> mainObj = new HashMap<String, Object>();
         mainObj.put("date", temp_str);
 
-        List<Detail> details = mainDAO.selectMain(temp_str);
+        List<Detail> details = mainDAO.selectMain(temp_str, tag);
 
         Map<Integer, List<Detail>> groupByResult = details.stream().collect(Collectors.groupingBy(Detail::getTag));
 

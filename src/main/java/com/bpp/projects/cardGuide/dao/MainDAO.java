@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface MainDAO {
 
-    List<Detail> selectMain(@Param("date") String date);
+    List<Detail> selectMain(@Param("date") String date, @Param("tag")Integer tag);
 
 }

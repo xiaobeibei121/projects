@@ -17,9 +17,10 @@ public class MainController {
     MainService mainService;
 
     @GetMapping("/mains")
-    public ResponseData getMainList(@RequestParam(required = false) String date) {
+    public ResponseData getMainList(@RequestParam(required = false) String date,
+                                    @RequestParam(required = false) Integer tag) {
         ResponseData resultDate = null;
-        resultDate = mainService.getMainList(date);
+        resultDate = mainService.getMainList(date,tag);
         return resultDate;
     }
 }

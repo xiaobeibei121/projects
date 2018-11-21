@@ -8,6 +8,9 @@
             <if test="date != null">
                 AND date= #{date}
             </if>
+            <if test="tag != null">
+                AND c.tag= #{tag}
+            </if>
         </where>
         ORDER BY b.tag ASC
     </select>
