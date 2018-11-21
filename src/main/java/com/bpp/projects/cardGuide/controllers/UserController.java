@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @RestController
+@RequestMapping("card")
 public class UserController {
 
     @Autowired
