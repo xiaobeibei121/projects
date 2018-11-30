@@ -2,11 +2,9 @@ package com.bpp.projects.cardGuide.controllers;
 
 import com.bpp.projects.cardGuide.Service.MainService;
 import com.bpp.projects.cardGuide.commons.ResponseData;
+import com.bpp.projects.cardGuide.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -22,5 +20,11 @@ public class MainController {
         ResponseData resultDate = null;
         resultDate = mainService.getMainList(date,tag);
         return resultDate;
+    }
+
+    @PostMapping("/bi")
+    public String postBI(@RequestBody String str) {
+        System.out.println(str);
+        return "true";
     }
 }
