@@ -4,7 +4,7 @@
     <select id="selectMain" resultType="com.bpp.projects.cardGuide.entity.Detail">
         SELECT b.tag as tag,c.name as name,b.messages as messages From mainTable a, detailTable b,banks c
         <where>
-            a.id = b.parentID and b.tag=c.tag
+            a.id = b.parentID and b.tag=c.tag and a.status=1
             <if test="date != null">
                 AND date= #{date}
             </if>

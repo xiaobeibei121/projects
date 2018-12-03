@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bpp.projects.cardAdmin.dao.MainAdmDAO">
+    <select id="getDateLists" resultType="com.bpp.projects.cardAdmin.entity.MainAdm">
+        SELECT * From mainTable
+        <where>
+            status != 9
+            <if test="startDate != null">
+                AND date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND date  &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY date desc
+    </select>
+
+    <insert id="insertMain" useGeneratedKeys="true" keyProperty="id" parameterType="com.bpp.projects.cardAdmin.entity.MainAdm" >
+        INSERT INTO mainTable(date,createTime,status)values(#{date},#{createTime},#{status});
+    </insert>
+
+
+    <insert id="insertDetail" useGeneratedKeys="true" keyProperty="id" parameterType="com.bpp.projects.cardGuide.entity.Detail">
+        INSERT INTO detailTable(parentID,tag,messages) values(#{parentID},#{tag},#{messages});
+    </insert>
+
+    <select id="selectMainAdm" resultType="com.bpp.projects.cardGuide.entity.Detail">
+        SELECT b.tag as tag,c.name as name,b.messages as messages From mainTable a, detailTable b,banks c
+        <where>
+            a.id=#{id} and a.id = b.parentID and b.tag=c.tag and a.status=1
+        </where>
+    </select>
+</mapper>

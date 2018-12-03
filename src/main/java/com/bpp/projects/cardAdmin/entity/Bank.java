@@ -1,4 +1,4 @@
-package com.bpp.projects.cardGuide.entity;
+package com.bpp.projects.cardAdmin.entity;
 
 import lombok.Data;
 

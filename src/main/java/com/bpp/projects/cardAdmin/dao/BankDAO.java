@@ -1,6 +1,6 @@
-package com.bpp.projects.cardGuide.dao;
+package com.bpp.projects.cardAdmin.dao;
 
-import com.bpp.projects.cardGuide.entity.Bank;
+import com.bpp.projects.cardAdmin.entity.Bank;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
