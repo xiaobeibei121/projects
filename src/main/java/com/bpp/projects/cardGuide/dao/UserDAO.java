@@ -1,6 +1,7 @@
 package com.bpp.projects.cardGuide.dao;
 
 import com.bpp.projects.cardGuide.entity.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -33,6 +34,14 @@ public interface UserDAO {
      */
     @Select("SELECT count(*) FROM usersTable WHERE openid=#{openid}")
     int isExistUser(@Param("openid") String openid);
+
+    /**
+     * 当有openid的时候就插入openid
+     * @param openid
+     * @return
+     */
+    @Insert("INSERT INTO usersTable(openid,createTime,lastVisitTime) VALUES(#{openid},#{createTime},#{lastVisitTime})")
+    int inserUserOpenid(@Param("openid") String openid, @Param("createTime") Date createTime, @Param("lastVisitTime") Date lastVisitTime);
 
     /**
      * 更新用户

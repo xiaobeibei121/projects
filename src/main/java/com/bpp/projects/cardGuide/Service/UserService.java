@@ -62,7 +62,12 @@ public class UserService {
             errorMsg = "获取成功";
             // 判断用户是否存在
             int isExistUser = userDAO.isExistUser(openid);
-            data.put("isExistUser", isExistUser);
+            if (isExistUser <= 0) { // 若不存在，则插入数据
+                userDAO.inserUserOpenid(openid, new Date(), new Date());
+            } else {
+                userDAO.updateUser(openid, new Date());
+            }
+            data.put("isExistUser", 1);
         }
         data.put("openid", openid);
         result.setErrorCode(errorCode);
