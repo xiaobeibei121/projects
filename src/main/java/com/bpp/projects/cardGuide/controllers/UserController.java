@@ -43,9 +43,9 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseData updateUser(@RequestParam(required = true) String openid) {
+    public ResponseData updateUser(@RequestBody User user) {
         ResponseData resultDate = null;
-        resultDate = userService.updateUser(openid);
+        resultDate = userService.updateUser(user);
         return resultDate;
     }
 }

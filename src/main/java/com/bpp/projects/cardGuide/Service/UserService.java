@@ -65,7 +65,7 @@ public class UserService {
             if (isExistUser <= 0) { // 若不存在，则插入数据
                 userDAO.inserUserOpenid(openid, new Date(), new Date());
             } else {
-                userDAO.updateUser(openid, new Date());
+                userDAO.updateUserVisit(openid, new Date());
             }
             data.put("isExistUser", 1);
         }
@@ -133,12 +133,13 @@ public class UserService {
 
     /**
      * 更新用户数据
-     * @param openid
+     * @param user
      * @return
      */
-    public ResponseData updateUser(String openid) {
+    public ResponseData updateUser(User user) {
         // 更新用户数据
-        int resultNum = userDAO.updateUser(openid, new Date());
+        user.setLastVisitTime(new Date());
+        int resultNum = userDAO.updateUser(user);
 
         int errorCode = 0;
         String errorMsg = null;

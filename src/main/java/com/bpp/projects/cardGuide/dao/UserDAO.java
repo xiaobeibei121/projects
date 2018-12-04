@@ -45,10 +45,18 @@ public interface UserDAO {
 
     /**
      * 更新用户
+     * @param user
+     * @return
+     */
+    @Update("UPDATE usersTable SET lastVisitTime=#{user.lastVisitTime},nickName=#{user.nickName},avatarUrl=#{user.avatarUrl},country=#{user.country},province=#{user.province},city=#{user.city},gender=#{user.gender},language=#{user.language} WHERE openid=#{user.openid}")
+    int updateUser(@Param("user") User user);
+
+    /**
+     * 更新访问时间
      * @param openid
      * @param lastVisitTime
      * @return
      */
-    @Update("UPDATE usersTable SET lastVisitTime=#{lastVisitTime}  WHERE openid=#{openid}")
-    int updateUser(@Param("openid") String openid, @Param("lastVisitTime") Date lastVisitTime);
+    @Update("UPDATE usersTable SET lastVisitTime=#{lastVisitTime} WHERE openid=#{openid}")
+    int updateUserVisit(@Param("openid") String openid, @Param("lastVisitTime") Date lastVisitTime);
 }
