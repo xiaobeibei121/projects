@@ -52,6 +52,10 @@ public class MainService {
             results.add(resultDetail);
         }
 
+        Collections.sort(results, (obj1,obj2) ->{
+            return Integer.parseInt(obj1.get("tag").toString()) - Integer.parseInt(obj2.get("tag").toString());
+        });
+
         mainObj.put("details", results);
 
         int errorCode = 0;
